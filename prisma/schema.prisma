@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id            Int       @id @default(autoincrement())
+  category_id   Int?      @map("category_id")
+  shop_id       Int       @map("shop_id")
+  name          String
+  slug          String
+  description   String?
+  brand         String?
+  price         Float
+  sale_price    Float?    @map("sale_price")
+  quantity      Int
+  images        String[]
+  rating        Float?
+  total_sales   Int?      @map("total_sales")
+  is_featured   Boolean?  @map("is_featured")
+  is_flash_sale Boolean?  @map("is_flash_sale")
+  discount      Float?
+  flash_sale_end DateTime? @map("flash_sale_end")
+  created_at    DateTime  @map("created_at") @default(now())
+  updated_at    DateTime  @map("updated_at") @updatedAt
+
+  @@map("products")
+}
